@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{71B5BB71-3797-4AD0-ACE1-FCA099A5A957}</ProjectGuid>
+    <ProjectGuid>{1A0ABD56-1340-4840-B376-6F880CDCEC43}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Hotel.Comum</RootNamespace>
-    <AssemblyName>Hotel.Comum</AssemblyName>
+    <RootNamespace>Engegraph.ADO</RootNamespace>
+    <AssemblyName>Engegraph.ADO</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Binarios\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -43,27 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\ObjetoDeValidacao.cs" />
-    <Compile Include="Enumerados\EnGenero.cs" />
-    <Compile Include="Enumerados\EnSituacaoOcupacao.cs" />
-    <Compile Include="Enumerados\EnSituacaoReserva.cs" />
-    <Compile Include="Enumerados\EnSituacaoUh.cs" />
-    <Compile Include="Modelos\CheckOut.cs" />
-    <Compile Include="Modelos\Class1.cs" />
-    <Compile Include="Modelos\Configuracao.cs" />
-    <Compile Include="Modelos\Entidade.cs" />
-    <Compile Include="Modelos\Hospede.cs" />
-    <Compile Include="Modelos\HospedeOcupacao.cs" />
-    <Compile Include="Modelos\Ocupacao.cs" />
-    <Compile Include="Modelos\Reserva.cs" />
-    <Compile Include="Modelos\TipoPagto.cs" />
-    <Compile Include="Modelos\TipoUh.cs" />
-    <Compile Include="Modelos\Uh.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hotel.Comum\Hotel.Comum.csproj">
+      <Project>{71B5BB71-3797-4AD0-ACE1-FCA099A5A957}</Project>
+      <Name>Hotel.Comum</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
