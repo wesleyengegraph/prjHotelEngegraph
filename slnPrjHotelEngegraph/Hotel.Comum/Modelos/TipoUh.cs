@@ -17,6 +17,8 @@ namespace Hotel.Comum.Modelos
         /// </summary>
         public int QtdeChd { get; set; }
         public double ValorDiaria { get; set; }
+
+        public double ValorAdicional { get; set; }
         public List<Uh> Uhs { get; set; }
 
         public List<Reserva> Reservas { get; set; }

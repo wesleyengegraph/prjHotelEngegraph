@@ -9,53 +9,97 @@ namespace Engegraph.ADO
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Acessando dados com ADO.Net.");
 
-            var ID = "973A2891-5EFE-4729-B995-B9183E5E1C01";
-
-            var sql = $"select * from tipouh where ID = @ID";
-
-            //var sql = "select * from TipoUh";
-
-            using (var conexao = new SqlConnection())
-
+            try
             {
-                conexao.ConnectionString = "Server=ESI-DEV04;database=HotelEngegraph;user=ENGEGRAPH;password=DevEngegraph;Trusted_Connection=True";
-                var comando = new SqlCommand(sql, conexao);
-                comando.Parameters.AddWithValue("ID", ID);
-                conexao.Open();
-
-                List<TipoUh> tiposUh = new List<TipoUh>();
-
-                using(var reader = comando.ExecuteReader())
+                using (var conexao = new SqlConnection("Server=;Database=HotelEngegraph;User=ENGEGRAPH;password=DevEngegraph"))
                 {
+                    Console.WriteLine("Meu primeiro CRUD completo");
 
-                    while(reader.Read())
+                    //var crud = new TipoUhCrud(@"Server=;Database=HotelEngegraph;User=ENGEGRAPH;password=DevEngegraph");
+                    var crud = new TipoUhCrud(conexao);
+
+
+                    var tipoUh = new TipoUh();
+
+                    /*
+                    tipoUh.Id = Guid.NewGuid();
+
+                    tipoUh.Descricao = "Super Lux Suite";
+                    tipoUh.QtdeAdt = 2;
+                    tipoUh.QtdeChd = 2;
+                    tipoUh.ValorDiaria = 499.00;
+                    tipoUh.ValorAdicional = 699.00;
+                    tipoUh.DataCriacao = DateTime.Now;
+
+                    crud.Create(tipoUh);
+
+                    Console.WriteLine("Dados inseridos com sucesso");
+                    */
+
+                    Console.WriteLine("Lendo dados do banco...");
+
+                    var dados = crud.Read();
+
+                    //Console.WriteLine("Id Descricao QtdAdt QtdChd Valor DiariaValorAdicional DataCriacao DataModificacao");
+
+                    Console.WriteLine("");
+
+                    // Esse não consegui executar, ocorreu erro (conexão aberta, parece).
+                    foreach (var item in dados)
                     {
+                        Console.WriteLine($"Id: {item.Id}");
+                        Console.WriteLine($"Descrição: {item.Descricao}");
+                        Console.WriteLine($"QtdeAdt: {item.QtdeAdt}");
+                        Console.WriteLine($"QtdeChd: {item.QtdeChd}");
+                        Console.WriteLine($"ValorDiaria: {item.ValorDiaria}");
+                        Console.WriteLine($"ValorAdicional: {item.ValorAdicional}");
+                        Console.WriteLine($"DataCriacao: {item.DataCriacao}");
+                        Console.WriteLine($"DataModificacao: {item.DataModificacao}");
 
-                        tiposUh.Add(new TipoUh()
-                        {
-                            Id = (Guid)reader["Id"],
-                            Descricao = reader["Descricao"].ToString(),
-                            ValorDiaria = Convert.ToDouble(reader["ValorDiaria"])
-                        });
-                        
-                        Console.WriteLine($"Descricao,{reader["Descricao"]}; ValorDiaria: {reader["ValorDiaria"]}");
+                        Console.WriteLine("-------------------------------------------------------");
+
+
                     }
+
+                    Console.WriteLine("Atualização...");
+
+                    //var tipoUh = new TipoUh();
+
+                    //tipoUh.Id = Guid.NewGuid();
+                    tipoUh.Id = Guid.Parse("03410385-587C-4CE0-AB3A-6A202BD76E98");
+                    tipoUh.Descricao = "Super Lux Suite novo alterado";
+                    tipoUh.QtdeAdt = 3;
+                    tipoUh.QtdeChd = 4;
+                    tipoUh.ValorDiaria = 599.00;
+                    tipoUh.ValorAdicional = 799.00;
+                    tipoUh.DataModificacao = DateTime.Now;
+
+                    crud.Update(tipoUh);
+
+                    //crud.Delete(new Guid("973A2891-5EFE-4729-B995-B9183E5E1C01")); 
                 }
 
-                foreach(var item in tiposUh)
-                {
-                    Console.WriteLine($"Descrição: {item.Descricao}, Valor Diária: {item.ValorDiaria.ToString("0.00")}");
-                }
 
             }
+            catch (Exception ex)
+            {
+                //throw new Exception($"Falha ao tentar gravar: ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
 
-            Console.WriteLine("Conectado ao banco de dados.");
 
-            Console.ReadKey();
-
+            }
+            finally
+            {
+                Console.ReadKey();
+            }
 
         }
+
+        //private static CriarTipoUh()
+        //{
+        //
+        //}
     }
 }
